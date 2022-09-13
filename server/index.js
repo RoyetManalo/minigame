@@ -5,6 +5,7 @@ const connectDB = require("./config/db");
 const { errorHandler } = require("./middleware/errorMiddleware");
 const cors = require("cors");
 const PORT = process.env.PORT || 5000;
+const logger = require("./logger/index");
 
 connectDB();
 

@@ -2,6 +2,7 @@ const e = require("express");
 const asyncHandler = require("express-async-handler");
 const Quest = require("../Models/questModel");
 const User = require("../Models/userModel");
+const logger = require("../logger/index");
 
 const getAllQuests = asyncHandler(async (req, res) => {
   const allQuests = await Quest.find({});
@@ -9,10 +10,9 @@ const getAllQuests = asyncHandler(async (req, res) => {
 });
 
 const attackMonster = asyncHandler(async (req, res) => {
-  console.log(req.user);
+  logger.info("Attack Monster");
+  logger.info(JSON.stringify(req.body));
   const { userID, monsterID } = req.body;
-  // console.log(monsterID);
-  // console.log(userID);
 
   const quest = await Quest.findOne({ _id: monsterID });
   const { percentageSuccess } = quest;
@@ -36,11 +36,6 @@ const attackMonster = asyncHandler(async (req, res) => {
   }
 
   const { points } = user;
-
-  // const myAttack = Math.floor(Math.random() * (1000 - 100) + 100) / 100;
-
-  // Generate from 0 to 0.999
-  // const myAttack = Math.floor(Math.random() * (1000 - 100) + 100) / 1000;
 
   const myAttack = Math.floor(Math.random() * 11);
 

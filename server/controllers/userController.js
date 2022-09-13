@@ -2,8 +2,12 @@ const asyncHandler = require("express-async-handler");
 const User = require("../Models/userModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const logger = require("../logger/index");
 
 const registerUser = asyncHandler(async (req, res) => {
+  logger.info("Register User");
+  logger.info(JSON.stringify(req.body));
+
   console.log(req.body);
   const { email, username, password } = req.body;
 
@@ -44,6 +48,8 @@ const registerUser = asyncHandler(async (req, res) => {
 });
 
 const userLogin = asyncHandler(async (req, res) => {
+  logger.info("Login User");
+  logger.info(JSON.stringify(req.body));
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
@@ -71,6 +77,8 @@ const userLogin = asyncHandler(async (req, res) => {
 });
 
 const getUserDetails = asyncHandler(async (req, res) => {
+  logger.info("Get User Details");
+  logger.info(JSON.stringify(req.query));
   const { email } = req.query;
   console.log(req.query);
   const user = await User.findOne({ email }).select(
